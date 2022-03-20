@@ -1,0 +1,382 @@
+/* Resets */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(231, 231, 231);
+}
+*{
+  box-sizing: border-box;
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+img {
+  display: block;
+  width: 100%;
+}
+/* Variables */
+/* Using css custom properties, would need to use polyfill for ie11 */
+
+:root{
+  --titleColour: rgb(94, 173, 226);
+  --filterBg:  #fff;
+  --layoutPaddingSide: 0.5rem;
+  --layoutPaddingTop: 1rem;
+  --topZIndex: 1000;
+  --minTap:  44px;
+  --interactiveCol: rgb(0, 189, 72);
+  --movie-gap: 0.8rem;
+  --listGap: 1rem;
+  --maxPage: 1280px;
+  accent-color: var(--interactiveCol);
+}
+
+/* Page header */
+
+.pageHeader{
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: var(--layoutPaddingTop) var(--layoutPaddingSide);
+  background-color: var(--titleColour);
+}
+.pageTitle {
+  font-size: 2rem;
+  max-width: var(--maxPage);
+  margin: 0 auto;
+}
+h1::before{
+  content: "🍿"; /* Move from on page element as I don't think the image requires context and is only for decoration*/
+}
+
+/* filter system */
+.filter{
+  position: sticky;
+  top:0;
+  padding: 0 var(--layoutPaddingSide);
+  background-color: var(--filterBg);
+  z-index: var(--topZIndex);
+  max-height: 50vh;
+  box-shadow: 0 0 0.75rem rgba(0,0,0,0.6);
+}
+.filterTitle{
+  cursor: pointer;
+  font-size: 1.3rem;
+  height: var(--minTap);
+  padding: var(--layoutPaddingTop) 0;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  align-content: center;
+  gap: 0.4rem;
+  max-width: var(--maxPage);
+  margin: 0 auto;
+  
+}
+.filterTitle::after{
+  content: "+";
+}
+.filter[open]{
+  --filterBg:  rgb(236, 236, 236);
+}
+.filter[open] .filterTitle::after{
+  content: "-";
+}
+/* Display bug where fieldset can't be flex, but won't break styling in this case */
+.filterFieldSet{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display:flex;
+  flex-flow: row wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  border: 0;
+  padding:0;
+  margin:0 0 1rem;
+}
+.filterForm{
+  max-height: calc(50vh - var(--minTap));
+  overflow: scroll;
+  padding: var(--layoutPaddingTop) 0;
+  max-width: var(--maxPage);
+  margin: 0 auto;
+}
+.filterFormList{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.8rem 0.4rem;
+  list-style: none;
+  padding:0;
+  margin: 0;
+}
+
+.filterFormListItem{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  align-content: center;
+  gap: 0.3rem;
+  flex: 1 1 50%;
+  max-width: calc(50% - 0.2rem);
+}
+
+.filterLabel{
+  font-size: 1.25rem;
+  margin: 0;
+  padding:0;
+  display: block;
+  flex: 1 0 100%;
+}
+.filterRangeInput{
+  margin:0;
+  flex: 0 0 calc(100% - 3ch);
+  height: var(--minTap);
+  max-width: 400px;
+}
+.filterRangeOutput{
+  flex: 0 0 2ch;
+  text-align: right;
+}
+.filterButton{
+  position: relative;
+  width: auto;
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: 0.25rem;
+  padding: 1rem 1.4rem;
+  border: 0;
+  cursor: pointer;
+  background-color: var(--interactiveCol);
+}
+.filterBoxInput{
+  width: calc(var(--minTap) / 2);
+  height: calc(var(--minTap) / 2);
+}
+.filterBoxLabel{
+  font-size: 1rem;
+  line-height: var(--minTap);
+}
+
+/* Movie list area*/
+.dataArea{
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: var(--layoutPaddingTop) var(--layoutPaddingSide);
+  max-width: var(--maxPage);
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  gap: var(--listGap);
+}
+.dataAreaTitle{
+  font-size: 1.2rem;
+}
+.dataAreaList{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  gap: var( --listGap);
+  padding:0;
+  margin: 0;
+}
+/* Movie item */
+.movie{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  background-color: #fff;
+  padding: var(--movie-gap);
+  gap: var(--movie-gap);
+  max-width: 600px;
+  flex: 1 1 auto;
+}
+/* When focus given for screen readers and keyboard users don't display outline */
+.movie:focus{
+  outline:0;
+}
+.movieTitle{
+  position: relative;
+  width: 100%;
+  height: auto;
+  font-size: 1.3rem;
+  margin: 0;
+}
+.movieSummary{
+  font-size: 1rem;
+}
+.moviePoster{
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+}
+.movieGenres{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin:0;
+  padding:0;
+}
+.movieGenresTitle{
+  display: inline;
+}
+.movieGenresTitle::after{
+  content: ":";
+  margin: 0 0.3rem 0 0;
+}
+.movieGenresList{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.movieGenresListItem{
+  display: inline;
+}
+/* 
+  using css for instruction point 7.
+  Using same styles but different markup for all meta data
+  as it'd come in handy later if implementing something like
+  schema.org
+  */
+.movieGenresListItem:not(:nth-last-of-type(1)):not(:nth-last-of-type(2))::after{
+  content: ", ";
+  margin: 0 0.3rem 0 0;
+}
+.movieGenresListItem:nth-last-of-type(1):not(:nth-of-type(1))::before{
+  content: "and ";
+  margin: 0 0 0 0.3rem;
+}
+.movieMeta{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  gap: var(--movie-gap);
+  margin: 0;
+}
+.movieMetaLine{
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: 0.3rem;
+}
+.movieMetaText{
+  font-size: 1rem;
+  flex: 0 1 auto;
+  margin: 0;
+}
+.movieMetaLine dt::after{
+  content: ":";
+  margin: 0 0.3rem 0 0;
+}
+.metaTitle{
+  font-weight: bold;
+}
+
+@media (min-width: 600px){
+  .movie{
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: min-content min-content auto min-content;
+    align-items: flex-start;
+  }
+  .movieTitle{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+  .moviePoster{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 5;
+  }
+  .movieSummary{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+  }
+  .movieGenres{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    align-self: flex-end;
+  }
+  .movieMeta{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    align-self: flex-end;
+  }
+}
+@media (min-width: 768px){
+  .filterFormList{
+    gap: 1rem;
+  }
+  .filterFormListItem{
+    flex: 0 1 auto;
+    max-width: none;
+  }
+  .dataAreaList{
+    justify-content: flex-start;
+  }
+  .movie{
+    width: 50%;
+    flex: 1 1 50%;
+    max-width: calc(50% - (var(--listGap) / 2));
+  }
+  .movieGenres{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 3;
+  }
+  .movieMeta{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 4;
+  }
+  .moviePoster{
+    grid-row-end: 2;
+  }
+  :root{
+    --movie-gap: 1rem;
+    --layoutPaddingSide: 1rem;
+    --layoutPaddingTop: 1.5rem;
+    --listGap: 1.5rem;
+  }
+}
+@media (min-width: 1024px){
+  :root{
+    --movie-gap: 1.5rem;
+    --layoutPaddingSide: 4rem;
+    --layoutPaddingTop: 2rem;
+    --listGap: 2rem;
+  }
+}
