@@ -30,6 +30,7 @@ img {
   --topZIndex: 1000;
   --minTap:  44px;
   --interactiveCol: rgb(0, 189, 72);
+  --interactiveColHover: rgb(29, 216, 100);
   --movie-gap: 0.8rem;
   --listGap: 1rem;
   --maxPage: 1280px;
@@ -100,6 +101,7 @@ h1::before{
   border: 0;
   padding:0;
   margin:0 0 1rem;
+  flex: 1 0 100%;
 }
 .filterForm{
   max-height: calc(50vh - var(--minTap));
@@ -107,6 +109,9 @@ h1::before{
   padding: var(--layoutPaddingTop) 0;
   max-width: var(--maxPage);
   margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  gap:  var(--listGap);
 }
 .filterFormList{
   position: relative;
@@ -157,6 +162,22 @@ h1::before{
   border: 0;
   cursor: pointer;
   background-color: var(--interactiveCol);
+  flex: 0 1 auto;
+  border: 1px solid var(--interactiveCol);
+}
+.filterButton:hover, .filterButton:focus{
+  background-color: var(--interactiveColHover);
+  border-color: rgb(0, 109, 42);
+}
+.filterButton[type="reset"]{
+  background-color: rgb(104, 26, 26);
+  border-color: rgb(104, 26, 26);
+  color: #fff;
+}
+.filterButton[type="reset"]:hover, .filterButton[type="reset"]:focus{
+  background-color: rgb(126, 19, 19);
+  border-color: rgb(29, 3, 3);
+  color: #fff;
 }
 .filterBoxInput{
   width: calc(var(--minTap) / 2);

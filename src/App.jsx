@@ -6,7 +6,7 @@ import {Filter} from "./components/filter.jsx";
 
 export default function App() {
   /**
-   * This will all the movies, sorted by popularity. Any filtering will be done from this list
+   * This will be all the movies, sorted by popularity. Any filtering will be done from this list
    */
   const [movieList, setMovieList] = React.useState([]);
   /**
@@ -30,9 +30,9 @@ export default function App() {
    */
   const [minRating, setMinRating] = React.useState(3);
   /**
-   * Reset flag to reset the data
+   * Perform data update based on filtering submission and reset
    */
-  const [shouldReset, setShouldReset] = React.useState(false);
+  const [performUpdate, setPerformUpdate] = React.useState(false);
   /**
    * On first run the data for genres and movies is fetched. The movies are sorted by popularity and
    * set in a state. The genres list is reduced so that only genres that exist in the movies are displayed
@@ -102,7 +102,7 @@ export default function App() {
       return hasMatch;
     });
     setMovieListDisplay(newMovies);
-    setShouldReset(false);
+    setPerformUpdate(false);
     
   }), [movieList, setMovieListDisplay, genresDisplayed, minRating]);
   
@@ -121,10 +121,10 @@ export default function App() {
    * Triggers a reset of the movie data
    */
    React.useEffect(() => {
-     if(shouldReset){
+     if(performUpdate){
       filteredMovies();
      }
-   }, [shouldReset])
+   }, [performUpdate])
   /**
    * Show a loading message until the responses from the server come back. A animation after a certain wait
    * time would be appropriate, as well as error handling messages should the fetch requests fail.
@@ -136,13 +136,12 @@ export default function App() {
     </header>
     <main>
     <Filter
-    filteredMovies={filteredMovies}
     movieListDisplay={movieListDisplay}
     genresDisplayed={genresDisplayed}
     genresList={genresList}
     genreDefaultDisplay={genreDefaultDisplay}
     setMinRating={setMinRating}
-    setShouldReset={setShouldReset}
+    setPerformUpdate={setPerformUpdate}
     minRating={minRating}
     setGenresDisplayed={setGenresDisplayed} />
     <section className="dataArea">

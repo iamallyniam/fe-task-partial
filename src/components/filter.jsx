@@ -1,9 +1,9 @@
 import React from "react";
 
 export const Filter = ({
-    filteredMovies, genresDisplayed, setGenresDisplayed,
+    genresDisplayed, setGenresDisplayed,
     genresList, setMinRating, minRating, movieListDisplay,
-    genreDefaultDisplay, setShouldReset
+    genreDefaultDisplay, setPerformUpdate
     }) => {
     
     /**
@@ -16,14 +16,14 @@ export const Filter = ({
      */
     const submitAction = evt => {
         evt.preventDefault();
-        filteredMovies();
+        setPerformUpdate(true);
         return false;
     };
     const resetAction = evt => {
       evt.preventDefault();
       setMinRating(3);
       setGenresDisplayed(genreDefaultDisplay);
-      setShouldReset(true);
+      setPerformUpdate(true);
     };
     /**
      * Keeps the list of genres the user wants to filter by in sync with the inputs.
